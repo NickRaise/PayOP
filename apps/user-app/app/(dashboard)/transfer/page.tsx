@@ -6,8 +6,7 @@ import prisma from '@repo/db/client'
 import BalanceCard from '../../../components/BalanceCard'
 import OnRampTransaction from '../../../components/OnRampTransaction'
 
-
-const Transfer = async() => {
+const Transfer = async () => {
     const balance = await getBalance()
     const transactions = await getTransactions()
 
@@ -23,7 +22,7 @@ const Transfer = async() => {
                 <div>
                     <BalanceCard amount={balance.amount} locked={balance.locked} />
                     <div className='pt-4'>
-                        <OnRampTransaction transactions={transactions}/>
+                        <OnRampTransaction transactions={transactions} />
                     </div>
                 </div>
             </div>
@@ -57,13 +56,33 @@ const getTransactions = async () => {
             startTime: 'desc'
         }
     })
+    console.log(transactions)
     return transactions.map(tnxs => ({
         id: tnxs.id,
         time: tnxs.startTime,
         amount: tnxs.amount,
-        status: tnxs.amount,
+        status: mapStatus(tnxs.status),
         provider: tnxs.provider
     }))
+}
+
+enum StatusType {
+    Failure = "Failure",
+    Success = "Success",
+    Processing = "Processing"
+}
+
+const mapStatus = (status: 'Failure' | 'Success' | 'Processing'): StatusType => {
+    switch (status) {
+        case 'Failure':
+            return StatusType.Failure
+        case 'Success':
+            return StatusType.Success
+        case 'Processing':
+            return StatusType.Processing
+        default:
+            throw new Error(`Unexpected status: ${status}`)
+    }
 }
 
 export default Transfer
