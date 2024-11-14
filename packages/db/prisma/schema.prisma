@@ -44,7 +44,7 @@ model OnRampTransaction {
 
 model Balance {
   id        String  @id @default(uuid())
-  amount   Int
+  amount    Int
   locked    Int
   userId    String  @unique
   user      User    @relation(fields: [userId], references: [id])
