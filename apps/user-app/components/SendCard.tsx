@@ -18,12 +18,12 @@ const SendCard = () => {
                     <TextInput label="Number" placeholder='Enter the receiver number' onChange={(e: any) => {
                         setReceiverNumber(e.target.value)
                     }} />
-                    <TextInput type="number" label="Amount" placeholder='Enter the amount' nChange={(e: any) => {
+                    <TextInput type="number" label="Amount" placeholder='Enter the amount' onChange={(e: any) => {
                         setAmount(e.target.value)
                     }} />
                     <div className='mt-4 flex justify-center'>
                         <Button onClick={async () => {
-                            await transferMoney(receiveNumber, amount)
+                            await transferMoney(receiveNumber, Number(amount) * 100)
                         }}>Initiate Transfer</Button>
                     </div>
                 </Card>

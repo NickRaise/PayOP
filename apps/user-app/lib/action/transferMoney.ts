@@ -6,14 +6,15 @@ import db from "@repo/db/client"
 
 const transferMoney = async (receiver: string, amount: number) => {
     const session = await getServerSession(authOptions)
-    if (!session) {
+    if (!session || !session.user?.id) {
         console.log("Not logged in")
         return {
             message: "Invalid request receiver not found",
             status: 400
         }
     }
-    console.log("Seaching reciever")
+
+    const senderUserId = session.user.id
     const toUser = await db.user.findUnique({
         where: {
             number: receiver
@@ -26,7 +27,6 @@ const transferMoney = async (receiver: string, amount: number) => {
             message: "User not found!"
         }
     }
-    console.log("FOund user")
 
     const toUserAccount = await db.balance.findUnique({
         where: {
@@ -40,12 +40,15 @@ const transferMoney = async (receiver: string, amount: number) => {
         }
     }
 
-
+    console.log("THis is the amount,", amount)
     try {
         await db.$transaction(async (tx) => {
+            // lock this row in the database to prevent simultaneous updates 
+            await tx.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${senderUserId} FOR UPDATE`;
+
             const userBalance = await tx.balance.findUnique({
                 where: {
-                    userId: session?.user?.id
+                    userId: senderUserId
                 },
                 select: {
                     amount: true
@@ -53,29 +56,34 @@ const transferMoney = async (receiver: string, amount: number) => {
             })
             if (!userBalance || userBalance.amount < amount)
                 throw new Error("Insufficient funds!")
+            
+            console.log("user balance is sufficient", userBalance)
 
-            await tx.balance.update({
+            const res1 = await tx.balance.update({
                 where: {
-                    userId: session?.user?.id
+                    userId: senderUserId
                 },
                 data: {
                     amount: {
-                        decrement: Number(amount)
+                        decrement: amount
                     }
                 }
             })
-
-            await tx.balance.update({
+            console.log("decremetned from the user", res1)
+            const res2 = await tx.balance.update({
                 where: {
                     userId: toUser.id
                 },
                 data: {
                     amount: {
-                        increment: Number(amount)
+                        increment: amount
                     }
                 }
             })
+            console.log("incremetned to the receiver", res2)
         })
+
+        console.log("savely done the transaciton")
     } catch (err) {
         console.log(err)
         return {
