@@ -21,10 +21,10 @@ const statusColorMap = {
 }
 
 const OnRampTransaction = ({ transactions }: {
-    transactions: TransactionType[]
+    transactions: TransactionType[] | undefined
 }) => {
-    console.log("thi is tarasacionsss", transactions)
-    if (transactions.length === 0) {
+    // console.log("thi is tarasacionsss", transactions)
+    if (!transactions || transactions.length === 0) {
         return (
             <Card title='Recent Transactions'>
                 <div className='text-center py-8 italic'>

@@ -12,7 +12,7 @@ interface AppbarProps {
 export const Appbar = ({
     user, onSignin, onSignout
 }: AppbarProps) => {
-    return <div className="flex justify-between border-b p-1 px-4">
+    return <div className="flex justify-between border-b border-slate-300 p-2 px-4">
         <div className="text-lg flex flex-col justify-center">
             PayOP
         </div>

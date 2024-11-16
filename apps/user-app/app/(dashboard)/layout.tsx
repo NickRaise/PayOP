@@ -6,10 +6,11 @@ const layout = ({ children }: { children: React.ReactNode }) => {
         <div className='flex'>
             <div className='min-w-64 border-r border-slate-300 min-h-screen mr-4 pt-28'>
                 <div>
-                    <SidebarItem href="/dashboard" title='Home' icon={<HomeIcon/>} />
-                    <SidebarItem href="/transfer" title='Transfer' icon={<TransferIcon/>} />
-                    <SidebarItem href="/transaction" title='Transaction' icon={<TransactionsIcon/>} />
-                </div>                
+                    <SidebarItem href="/dashboard" title='Home' icon={<HomeIcon />} />
+                    <SidebarItem href="/transfer" title='Transfer' icon={<TransferIcon />} />
+                    <SidebarItem href="/transaction" title='Transaction' icon={<TransactionsIcon />} />
+                    <SidebarItem href="/p2p" title='P2P' icon={<P2PIcon />} />
+                </div>
             </div>
             {children}
         </div>
@@ -31,6 +32,12 @@ function TransferIcon() {
 function TransactionsIcon() {
     return <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+}
+
+function P2PIcon() {
+    return <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
     </svg>
 
 }

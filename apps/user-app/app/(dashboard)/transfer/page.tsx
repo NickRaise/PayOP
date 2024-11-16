@@ -20,7 +20,7 @@ const Transfer = async () => {
                     <AddMoneyCard />
                 </div>
                 <div>
-                    <BalanceCard amount={balance.amount} locked={balance.locked} />
+                    <BalanceCard amount={balance?.amount || 0} locked={balance?.locked || 0} />
                     <div className='pt-4'>
                         <OnRampTransaction transactions={transactions} />
                     </div>
@@ -32,12 +32,15 @@ const Transfer = async () => {
 
 const getBalance = async () => {
     const session = await getServerSession(authOptions)
-
+    if (!session)
+        return
     const balance = await prisma.balance.findFirst({
         where: {
             userId: session?.user?.id
         }
     })
+
+    console.log("balance is this -<",balance)
 
     return {
         amount: balance?.amount || 0,
@@ -47,7 +50,8 @@ const getBalance = async () => {
 
 const getTransactions = async () => {
     const session = await getServerSession(authOptions)
-
+    if (!session)
+        return
     const transactions = await prisma.onRampTransaction.findMany({
         where: {
             userId: session?.user?.id
@@ -56,7 +60,7 @@ const getTransactions = async () => {
             startTime: 'desc'
         }
     })
-    console.log(transactions)
+    console.log(transactions, "User is",)
     return transactions.map(tnxs => ({
         id: tnxs.id,
         time: tnxs.startTime,

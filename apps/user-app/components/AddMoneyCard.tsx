@@ -18,9 +18,12 @@ const AddMoneyCard = () => {
     const [amount, setAmount] = useState(0)
     const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl)
     const [provider, setProvider] = useState(SUPPORTED_BANKS[0]?.name || "")
+    const [errorMsg, setErrorMsg] = useState("")
     return (
         <Card title='Add Money'>
-            <TextInput label='Amount (Rs)' placeholder='Amount' onChange={setAmount} />
+            <TextInput type='number' label='Amount (Rs)' placeholder='Amount' onChange={(e: any) => {
+                setAmount(e.target.value)
+            }} />
             <div className='py-4 pb-2 text-left font-medium text-sm'>Bank</div>
             <Select
                 onSelect={(value) => {
@@ -32,14 +35,25 @@ const AddMoneyCard = () => {
                     key: x.name,
                     value: x.name
                 }))} />
-            <div className='flex justify-center pt-4'>
+            {
+                errorMsg !== "" &&
+                <div className='text-left my-1 italic text-red-600'>
+                    {errorMsg}
+                </div>
+            }
+            <div className='flex justify-center pt-2'>
                 <Button onClick={async () => {
-                    await OnRampTransaction(provider, amount)
-                    window.location.href = redirectUrl || ""
+                    if (amount <= 0)
+                        setErrorMsg("Amount can't be negative or 0")
+                    else {
+                        await OnRampTransaction(provider, amount)
+                        window.location.href = redirectUrl || ""
+                    }
                 }}>
                     Add Money
                 </Button>
             </div>
+            
         </Card>
     )
 }
