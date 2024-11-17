@@ -9,11 +9,15 @@ const TransferHistory = async () => {
     const allTransfers = await getTransferHistory()
     if (!allTransfers || allTransfers.length === 0) {
         return (
-            <Card title='Transfer History'>
-                <div className='text-center py-8 italic min-w-[300px]'>
-                    No transfer history...
+            <Center>
+                <div className="translate-y-[-20%] translate-x-[-30%]">
+                    <Card title='Transfer History'>
+                        <div className='text-center py-8 italic min-w-[300px]'>
+                            No transfer history...
+                        </div>
+                    </Card>
                 </div>
-            </Card>
+            </Center>
         )
     }
     return (
