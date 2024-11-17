@@ -6,11 +6,14 @@ import { Button } from '@repo/ui/Button'
 import TextInput from '@repo/ui/TextInput'
 import { useState } from 'react'
 import transferMoney from '../lib/action/transferMoney'
-
+import Loader from './Loader'
+import { useRouter } from 'next/navigation'
 
 const SendCard = () => {
     const [amount, setAmount] = useState<number>(0)
     const [receiveNumber, setReceiverNumber] = useState("")
+    const [loading, setLoading] = useState(false)
+    const router = useRouter()
     return (
         <Center>
             <div className='translate-y-[-20%] translate-x-[-30%]'>
@@ -23,8 +26,13 @@ const SendCard = () => {
                     }} />
                     <div className='mt-4 flex justify-center'>
                         <Button onClick={async () => {
+                            setLoading(true)
                             await transferMoney(receiveNumber, Number(amount) * 100)
-                        }}>Initiate Transfer</Button>
+                            setLoading(false)
+                            router.push("/transaction")
+                        }}>
+                            {loading ? <Loader /> : "Initiate Transfer"}
+                        </Button>
                     </div>
                 </Card>
             </div>

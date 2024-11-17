@@ -20,17 +20,17 @@ const TransferHistory = async () => {
         <Center>
             <div className="translate-y-[-20%] translate-x-[-30%]">
                 <Card title="Transfer History">
-                    <div className="pt-3">
+                    <div className="pt-3 flex flex-col gap-3">
                         {allTransfers.map(tx => (
-                            <div className="flex justify-between gap-4 min-w-[400px] min-h-[100px]">
+                            <div key={tx.id} className="flex justify-between min-w-[400px]">
                                 <div className="flex flex-col">
-                                    <div className="text-sm">
+                                    <span className="text-sm">
                                         {tx.sender ? "Sended " : "Received "}
                                         INR
-                                    </div>
-                                    <div className="text-xs text-slate-600">
+                                    </span>
+                                    <span className="text-xs text-slate-600">
                                         {tx.date.toDateString()}
-                                    </div>
+                                    </span>
                                 </div>
                                 <div className={`${tx.sender ? "text-red-600" : "text-green-600"}`}>
                                     {tx.sender ? "-" : "+"}{" Rs. " + tx.amount}
