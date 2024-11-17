@@ -1,81 +1,59 @@
-# Turborepo starter
+# Project Setup Instructions
 
-This is an official starter Turborepo.
+This document contains all the necessary steps to set up the project locally.
 
-## Using this example
+---
 
-Run the following command:
+## Prerequisites
 
-```sh
-npx create-turbo@latest
+Before starting, ensure the following tools are installed on your system:
+
+- [Node.js](https://nodejs.org) (LTS)
+- [npm](https://www.npmjs.com/) (Node Package Manager)
+
+---
+
+## Step 1: Create Environment Variables
+
+Each of the following folders contains an `.example.env` file. Use it as a template to create a `.env` file:
+
+- **apps/user-app**
+- **apps/admin-app**
+- **packages/db**
+
+Run the following command in each of these folders:
+```bash
+cp .example.env .env
 ```
 
-## What's inside?
+After copying, fill in the required values in each `.env` file according to your environment.
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `user-app`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `user-app` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+## Step 2: Install Dependencies
+Navigate to the root directory `(PAYOP)` and install the necessary dependencies:
 
 ```
-cd my-turborepo
-pnpm build
+cd PAYOP
+npm install
 ```
 
-### Develop
+## Step 3: Set Up the Database
+Navigate to the `packages/db` folder and run the following commands to set up the database:
 
-To develop all apps and packages, run the following command:
+1. **Generate a new migration**:
 
-```
-cd my-turborepo
-pnpm dev
-```
+    ```
+    cd packages/db
+    npx prisma migrate dev --name initialize
+    Generate the Prisma client:
+    ```
+2. **Generate the Prisma client**:
 
-### Remote Caching
+    ```
+    npx prisma generate
+    ```
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+**Notes**
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+Ensure all `.env` files are configured correctly before running any commands.
+If you encounter issues, refer to the Prisma documentation or project-specific setup notes.
+For additional troubleshooting, consult the README or related documentation provided in the project.
