@@ -81,6 +81,15 @@ const transferMoney = async (receiver: string, amount: number) => {
                 }
             })
             console.log("incremetned to the receiver", res2)
+
+            await tx.p2PTransfer.create({
+                data: {
+                    amount: amount,
+                    timeStamp: new Date(),
+                    fromUserId: senderUserId,
+                    toUserId: toUser.id
+                }
+            })
         })
 
         console.log("savely done the transaciton")

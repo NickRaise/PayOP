@@ -23,7 +23,6 @@ const statusColorMap = {
 const OnRampTransaction = ({ transactions }: {
     transactions: TransactionType[] | undefined
 }) => {
-    // console.log("thi is tarasacionsss", transactions)
     if (!transactions || transactions.length === 0) {
         return (
             <Card title='Recent Transactions'>

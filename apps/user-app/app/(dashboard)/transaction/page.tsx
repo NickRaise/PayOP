@@ -1,8 +1,8 @@
 import React from 'react'
-
+import TransferHistory from '../../../components/TransferHistory'
 const Transaction = () => {
   return (
-    <div>transaction</div>
+      <TransferHistory />
   )
 }
 

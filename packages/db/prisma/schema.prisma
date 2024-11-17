@@ -21,8 +21,19 @@ model User {
   password  String
   OnRampTransaction OnRampTransaction[]
   balance   Balance[]
+  sentTransfers     P2PTransfer[] @relation(name: "fromUserRelation")
+  receivedTransfers P2PTransfer[] @relation(name: "toUserRelation")
 }
 
+model P2PTransfer {
+  id          String @id @default(uuid())
+  amount      Int
+  timeStamp   DateTime
+  fromUserId  String
+  fromUser    User @relation(name: "fromUserRelation" ,fields: [fromUserId], references: [id])
+  toUserId    String
+  toUser      User @relation(name: "toUserRelation" ,fields: [toUserId], references: [id])
+}
 
 model Merchant {
   id        String  @id @default(uuid())
@@ -30,6 +41,7 @@ model Merchant {
   name      String
   auth_type AuthType
 }
+
 
 model OnRampTransaction {
   id        String  @id @default(uuid())
@@ -41,6 +53,7 @@ model OnRampTransaction {
   userId    String
   user      User    @relation(fields: [userId], references: [id])
 }
+
 
 model Balance {
   id        String  @id @default(uuid())
