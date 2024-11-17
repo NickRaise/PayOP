@@ -22,6 +22,7 @@ Each of the following folders contains an `.example.env` file. Use it as a templ
 - **packages/db**
 
 Run the following command in each of these folders:
+
 ```bash
 cp .example.env .env
 ```
@@ -29,6 +30,7 @@ cp .example.env .env
 After copying, fill in the required values in each `.env` file according to your environment.
 
 ## Step 2: Install Dependencies
+
 Navigate to the root directory `(PAYOP)` and install the necessary dependencies:
 
 ```
@@ -37,23 +39,36 @@ npm install
 ```
 
 ## Step 3: Set Up the Database
+
 Navigate to the `packages/db` folder and run the following commands to set up the database:
 
 1. **Generate a new migration**:
 
-    ```
-    cd packages/db
-    npx prisma migrate dev --name initialize
-    Generate the Prisma client:
-    ```
+   ```
+   cd packages/db
+   npx prisma migrate dev --name initialize
+   Generate the Prisma client:
+   ```
+
 2. **Generate the Prisma client**:
 
-    ```
-    npx prisma generate
-    ```
+   ```
+   npx prisma generate
+   ```
+
+## Tech Stack
+
+This project uses the following technologies:
+
+- **Next.js**: React framework for building modern web applications.
+- **NextAuth.js**: Authentication library for Next.js, to manage user sessions and authentication.
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development.
+- **Turborepo**: Monorepo management framework for managing multiple packages and apps.
+- **Express**: Web framework for Node.js used in the backend.
+- **Prisma (PostgreSQL ORM)**: ORM for managing database operations with a PostgreSQL database.
+- **TypeScript**: JavaScript superset providing static typing for better developer experience and maintainability.
 
 **Notes**
-
 Ensure all `.env` files are configured correctly before running any commands.
 If you encounter issues, refer to the Prisma documentation or project-specific setup notes.
 For additional troubleshooting, consult the README or related documentation provided in the project.
