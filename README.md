@@ -47,7 +47,6 @@ Navigate to the `packages/db` folder and run the following commands to set up th
    ```
    cd packages/db
    npx prisma migrate dev --name initialize
-   Generate the Prisma client:
    ```
 
 2. **Generate the Prisma client**:
