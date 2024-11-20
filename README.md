@@ -55,6 +55,25 @@ Navigate to the `packages/db` folder and run the following commands to set up th
    npx prisma generate
    ```
 
+## Step 4: Start the project:
+1. Go to the user app folder and start the project
+   ```
+   cd apps/user-app
+   npm run dev   
+   ```
+   
+2. To simulate the band response
+   Go to the bank-webserver and run the express backend
+   ```
+   cd apps/bank-webserver
+   run run dev
+   ```
+   And use postman by giving the token of the transaction to approve the process
+
+
+##Note:
+   The merchant app is still not complete. You are welcome to contribute.
+
 ## Tech Stack
 
 This project uses the following technologies:
