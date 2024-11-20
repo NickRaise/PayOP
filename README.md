@@ -71,7 +71,7 @@ Navigate to the `packages/db` folder and run the following commands to set up th
    And use postman by giving the token of the transaction to approve the process
 
 
-##Note:
+## Note:
    The merchant app is still not complete. You are welcome to contribute.
 
 ## Tech Stack
